@@ -52,16 +52,13 @@ export class MovieSearchComponent implements OnInit {
   private getSearchResults(): void {
     this.pending$.next(true);
     this.movies$ = this.searchControl.valueChanges.pipe(
-      // tap((data) => this.movies$= new Subject<Array<Movie>>()),
       debounceTime(500),
       distinctUntilChanged(),
-    
       switchMap((searchString) =>
         this.movieService.getMovieBySearchQuery(searchString)
       ),
       map((res: any) => res.Search),
       tap(() => this.pending$.next(false)),
-      tap((data) => console.log('dddd', data)),
       
     );
   }
