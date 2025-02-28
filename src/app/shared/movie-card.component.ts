@@ -9,7 +9,6 @@ import {
 import { Movie } from './movie.model';
 import {
   CdkDragStart,
-  CdkDropList,
   DragDropModule,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
@@ -34,8 +33,8 @@ export class MovieCardComponent implements OnInit,  AfterViewInit {
     this.dataSource = new MatTableDataSource(data)
   }
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  columnNames: string[] = []
-  displayedColumns: string[] = [];
+  protected columnNames: string[] = []
+  protected displayedColumns: string[] = [];
   protected dataSource!: MatTableDataSource<Movie>
   protected previousIndex: number = 1
   protected readonly imgRow = "Poster"
@@ -62,7 +61,7 @@ export class MovieCardComponent implements OnInit,  AfterViewInit {
     this.previousIndex = index
   }
 
-  protected dropListDropped(event: CdkDropList, index: number):void {
+  protected dropListDropped(event: any, index: number):void {
     if (event) {
       moveItemInArray(this.columnNames, this.previousIndex, index);
       this.setDisplayedColumns();
